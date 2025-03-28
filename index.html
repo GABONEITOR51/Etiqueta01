@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Etiqueta de Producto</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        width: 80mm; /* Ancho de la etiqueta */
+        margin: 0;
+        padding: 0;
+        text-align: center; /* Centrar el contenido */
+    }
+    .label {
+        border: 1px solid #000; /* Opcional: borde para la etiqueta */
+        padding: 10px;
+        margin: 0 auto;
+    }
+    .barcode {
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+    <div class="label">
+        <div>
+            <strong>Cliente:</strong>
+            <span id="NombreCompleto"></span>
+        </div>
+        <div class="barcode">
+            <img id="CodigoBarra" alt="Código de barras">
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Simulamos valores de las variables NombreCompleto y Codigo
+            const NombreCompleto = "Juan Pérez";
+            const Codigo = "123456789";
+
+            // Insertamos el nombre del cliente
+            document.getElementById("NombreCompleto").textContent = NombreCompleto;
+
+            // Generamos una imagen de código de barras
+            const img = document.getElementById("CodigoBarra");
+            img.src = `https://barcode.tec-it.com/barcode.ashx?data=${Codigo}&code=Code128&dpi=96`;
+        });
+    </script>
+</body>
+</html>
