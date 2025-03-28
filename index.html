@@ -8,13 +8,13 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            width: 80mm; /* Ancho de la etiqueta */
+            width: 80mm;
             margin: 0;
             padding: 0;
-            text-align: center; /* Centrar el contenido */
+            text-align: center;
         }
         .label {
-            border: 1px solid #000; /* Borde opcional */
+            border: 1px solid #000;
             padding: 10px;
             margin: 0 auto;
         }
@@ -30,38 +30,38 @@
             <span id="NombreCompleto"></span>
         </div>
         <div class="barcode">
-            <svg id="CodigoBarra"></svg> <!-- Elemento SVG para JsBarcode -->
+            <svg id="CodigoBarra"></svg>
         </div>
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Obtener parámetros de la URL
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
-
-            // Extraer valores
             const NombreCompleto = urlParams.get('Completo');
-            const Telefono = urlParams.get('Telefono'); // Código basado en el teléfono
+            const Telefono = urlParams.get('Telefono');
 
-            // Asignar valores al contenido HTML
+            console.log("Parámetros recibidos:", { NombreCompleto, Telefono });
+
             document.getElementById("NombreCompleto").textContent = NombreCompleto || "Dato no disponible";
 
-            // Generar el código de barras usando JsBarcode
             if (Telefono) {
+                console.log("Intentando generar código de barras para:", Telefono);
                 JsBarcode("#CodigoBarra", Telefono, {
-                    format: "CODE128", // Formato del código de barras
+                    format: "CODE128",
                     lineColor: "#000",
                     width: 2,
                     height: 50,
-                    displayValue: true // Mostrar el valor debajo del código de barras
+                    displayValue: true
                 });
             } else {
+                console.log("El parámetro Telefono está vacío o no válido.");
                 document.getElementById("CodigoBarra").textContent = "Teléfono no disponible";
             }
         });
     </script>
 </body>
 </html>
+
 
 
 
