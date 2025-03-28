@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etiqueta de Cliente</title>
-    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script> <!-- Biblioteca JsBarcode -->
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -41,7 +41,7 @@
 
             // Extraer valores
             const NombreCompleto = urlParams.get('Completo');
-            const Telefono = urlParams.get('Telefono'); // Extrae el número de teléfono
+            const Telefono = urlParams.get('Telefono'); // Código basado en el teléfono
 
             // Asignar valores al contenido HTML
             document.getElementById("NombreCompleto").textContent = NombreCompleto || "Dato no disponible";
@@ -62,5 +62,6 @@
     </script>
 </body>
 </html>
+
 
 
