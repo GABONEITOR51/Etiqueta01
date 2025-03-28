@@ -35,13 +35,10 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
 
-
-            // Insertamos el nombre del cliente
-            document.getElementById("NombreCompleto").textContent = NombreCompleto;
-
-            // Generamos una imagen de código de barras
-            const img = document.getElementById("CodigoBarra");
-            img.src = `https://barcode.tec-it.com/barcode.ashx?data=${Codigo}&code=Code128&dpi=96`;
+            // Simulamos valores de las variables NombreCompleto y Codigo
+            const NombreCompleto = NombreCompleto;
+            const Codigo = CodigoBarra;
+            
         });
     </script>
 </body>
