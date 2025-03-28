@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etiqueta de Cliente</title>
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script> <!-- Biblioteca JsBarcode -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -29,7 +30,7 @@
             <span id="NombreCompleto"></span>
         </div>
         <div class="barcode">
-            <img id="CodigoBarra" alt="Código de barras">
+            <svg id="CodigoBarra"></svg> <!-- Elemento SVG para JsBarcode -->
         </div>
     </div>
     <script>
@@ -40,12 +41,12 @@
 
             // Extraer valores
             const NombreCompleto = urlParams.get('Completo');
-            const ImagenCodigoBarras = urlParams.get('CodigoBarras'); // Aquí recibirás la URL de la imagen directamente
+            const Telefono = urlParams.get('Codigo'); // Código basado en el teléfono
 
             // Asignar valores al contenido HTML
             document.getElementById("NombreCompleto").textContent = NombreCompleto || "Dato no disponible";
 
-                    // Generar el código de barras usando JsBarcode
+            // Generar el código de barras usando JsBarcode
             if (Telefono) {
                 JsBarcode("#CodigoBarra", Telefono, {
                     format: "CODE128", // Formato del código de barras
@@ -61,4 +62,5 @@
     </script>
 </body>
 </html>
+
 
