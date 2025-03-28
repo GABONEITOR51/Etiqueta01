@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Etiqueta de Cliente</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        width: 80mm; /* Ancho de la etiqueta */
-        margin: 0;
-        padding: 0;
-        text-align: center; /* Centrar el contenido */
-    }
-    .label {
-        border: 1px solid #000; /* Opcional: borde para la etiqueta */
-        padding: 10px;
-        margin: 0 auto;
-    }
-    .barcode {
-        margin-top: 20px;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etiqueta de Cliente</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            width: 80mm; /* Ancho de la etiqueta */
+            margin: 0;
+            padding: 0;
+            text-align: center; /* Centrar el contenido */
+        }
+        .label {
+            border: 1px solid #000; /* Borde opcional */
+            padding: 10px;
+            margin: 0 auto;
+        }
+        .barcode {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <div class="label">
@@ -33,12 +33,19 @@
         </div>
     </div>
     <script>
+        // Al cargar el documento
         document.addEventListener("DOMContentLoaded", function() {
+            // Obtener parámetros de la URL
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
 
-            // Simulamos valores de las variables NombreCompleto y Codigo
-            const NombreCompleto = "Completo";
-            const Codigo = "Codigo Barras";
-            
+            // Extraer valores
+            const NombreCompleto = urlParams.get('Completo');
+            const Codigo = urlParams.get('Codigo Barras');
+
+            // Asignar valores al contenido HTML
+            document.getElementById("NombreCompleto").textContent = NombreCompleto || "Dato no disponible";
+            document.getElementById("CodigoBarra").src = `https://api.barcodes4.me/barcode/c128/${Codigo}.png`;
         });
     </script>
 </body>
