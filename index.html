@@ -41,7 +41,7 @@
 
             // Extraer valores
             const NombreCompleto = urlParams.get('Completo');
-            const Telefono = urlParams.get('Codigo'); // Código basado en el teléfono
+            const Telefono = urlParams.get('Telefono'); // Extrae el número de teléfono
 
             // Asignar valores al contenido HTML
             document.getElementById("NombreCompleto").textContent = NombreCompleto || "Dato no disponible";
@@ -56,7 +56,7 @@
                     displayValue: true // Mostrar el valor debajo del código de barras
                 });
             } else {
-                document.getElementById("CodigoBarra").textContent = "Código no disponible";
+                document.getElementById("CodigoBarra").textContent = "Teléfono no disponible";
             }
         });
     </script>
