@@ -45,6 +45,19 @@
             // Asignar valores al contenido HTML
             document.getElementById("NombreCompleto").textContent = NombreCompleto || "Dato no disponible";
             document.getElementById("CodigoBarra").src = ImagenCodigoBarras || ""; // Asigna la URL de la imagen
+
+                    // Generar el código de barras usando JsBarcode
+            if (Telefono) {
+                JsBarcode("#CodigoBarra", Telefono, {
+                    format: "CODE128", // Formato del código de barras
+                    lineColor: "#000",
+                    width: 2,
+                    height: 50,
+                    displayValue: true // Mostrar el valor debajo del código de barras
+                });
+            } else {
+                document.getElementById("CodigoBarra").textContent = "Código no disponible";
+            }
         });
     </script>
 </body>
