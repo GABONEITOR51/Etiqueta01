@@ -33,7 +33,6 @@
         </div>
     </div>
     <script>
-        // Al cargar el documento
         document.addEventListener("DOMContentLoaded", function() {
             // Obtener parámetros de la URL
             const queryString = window.location.search;
@@ -41,12 +40,13 @@
 
             // Extraer valores
             const NombreCompleto = urlParams.get('Completo');
-            const Codigo = urlParams.get('Codigo Barras');
+            const ImagenCodigoBarras = urlParams.get('CodigoBarras'); // Aquí recibirás la URL de la imagen directamente
 
             // Asignar valores al contenido HTML
             document.getElementById("NombreCompleto").textContent = NombreCompleto || "Dato no disponible";
-            document.getElementById("CodigoBarra").src = `https://api.barcodes4.me/barcode/c128/${Codigo}.png`;
+            document.getElementById("CodigoBarra").src = ImagenCodigoBarras || ""; // Asigna la URL de la imagen
         });
     </script>
 </body>
 </html>
+
