@@ -3,12 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Etiqueta de Cliente</title>
+    <title>Etiqueta</title>
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
 
     <style>
         /* Tamaño real de la etiqueta 1.1" x 3.5" */
-        @page { size: 90mm 28mm; /* 3.54" x 1.1" */ margin: 0; } body { width: 90mm; height: 28mm; margin: 0; padding: 0; }
+        @page { 
+            size: 90mm 28mm; /* 3.54" x 1.1" */ 
+            margin: 0; 
+        }
+
+        body { 
+            width: 90mm; 
+            height: 28mm; 
+            margin: 0; 
+            padding: 0; 
+        }
 
         .label {
             width: 100%;
@@ -28,7 +38,6 @@
 <body>
     <div class="label">
         <div>
-            <strong>Cliente:</strong>
             <span id="NombreCompleto"></span>
         </div>
 
@@ -64,5 +73,3 @@
     </script>
 </body>
 </html>
-
-
