@@ -1,31 +1,80 @@
-<style>
-    /* Tamaño real de la etiqueta 1.1" x 3.5" */
-    @page {
-        size: 89mm 28mm; /* landscape */
-        margin: 0;
-    }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etiqueta de Cliente</title>
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
 
-    body {
-        font-family: Arial, sans-serif;
-        width: 89mm;
-        height: 28mm;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+    <style>
+        /* Tamaño real de la etiqueta 1.1" x 3.5" */
+        @page {
+            size: 89mm 28mm; /* Landscape */
+            margin: 0;
+        }
 
-    .label {
-        width: 100%;
-        height: 100%;
-        padding: 2mm;
-        box-sizing: border-box;
-        text-align: left;
-        overflow: hidden;
-    }
+        body {
+            font-family: Arial, sans-serif;
+            width: 89mm;
+            height: 28mm;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    .barcode {
-        margin-top: 2mm;
-    }
-</style>
+        .label {
+            width: 100%;
+            height: 100%;
+            padding: 2mm;
+            box-sizing: border-box;
+            text-align: left;
+            overflow: hidden;
+        }
+
+        .barcode {
+            margin-top: 2mm;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="label">
+        <div>
+            <strong>Cliente:</strong>
+            <span id="NombreCompleto"></span>
+        </div>
+
+        <div class="barcode">
+            <svg id="CodigoBarra"></svg>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+
+            const NombreCompleto = urlParams.get('Completo');
+            const Telefono = urlParams.get('Telefono');
+
+            document.getElementById("NombreCompleto").textContent =
+                NombreCompleto || "Dato no disponible";
+
+            if (Telefono) {
+                JsBarcode("#CodigoBarra", Telefono, {
+                    format: "CODE128",
+                    lineColor: "#000",
+                    width: 2,
+                    height: 40,
+                    displayValue: true
+                });
+            } else {
+                document.getElementById("CodigoBarra").textContent =
+                    "Teléfono no disponible";
+            }
+        });
+    </script>
+</body>
+</html>
