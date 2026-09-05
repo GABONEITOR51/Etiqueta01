@@ -1,210 +1,66 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lista de Citas — Consulado</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --paper:#F7F5F0;
-    --ink:#1A1A17;
-    --ink-soft:#5C574E;
-    --seal:#1C5B43;
-    --seal-dark:#143F2F;
-    --gold:#9A7B33;
-    --line:#D8D2C6;
-    --card:#FFFFFF;
-    --zebra:#F3F1EB;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  body{
-    background:var(--paper);color:var(--ink);
-    font-family:"Inter",system-ui,-apple-system,sans-serif;
-    line-height:1.4;padding:24px;
-  }
-
-  .toolbar{max-width:1100px;margin:0 auto 16px;display:flex;gap:10px;justify-content:flex-end}
-  .btn{
-    font:inherit;font-weight:600;font-size:14px;cursor:pointer;
-    padding:9px 18px;border-radius:6px;border:1px solid var(--seal);
-    background:var(--seal);color:#fff;letter-spacing:.02em;
-  }
-  .btn.ghost{background:transparent;color:var(--seal)}
-  .btn:active{transform:translateY(1px)}
-
-  .sheet{
-    max-width:1100px;margin:0 auto;background:var(--card);
-    border:1px solid var(--line);box-shadow:0 1px 0 rgba(0,0,0,.03);
-  }
-
-  header.head{
-    background:var(--seal);color:#fff;padding:20px 26px 16px;
-    border-bottom:3px solid var(--gold);
-    display:flex;justify-content:space-between;align-items:flex-end;gap:18px;flex-wrap:wrap;
-  }
-  .head .left .eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;opacity:.82;font-weight:600}
-  .head h1{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:26px;line-height:1.05;margin-top:4px}
-  .chip{
-    background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);
-    border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600;white-space:nowrap;
-  }
-  .chip b{font-variant-numeric:tabular-nums}
-
-  .tablewrap{overflow-x:auto}
-  table{width:100%;border-collapse:collapse;font-size:14px}
-  thead th{
-    background:var(--seal-dark);color:#fff;text-align:left;
-    font-family:"Fraunces",serif;font-weight:600;font-size:12px;
-    letter-spacing:.06em;text-transform:uppercase;
-    padding:11px 12px;border-right:1px solid rgba(255,255,255,.12);white-space:nowrap;
-  }
-  thead th:last-child{border-right:none}
-  th.num,td.num{text-align:center;font-variant-numeric:tabular-nums;width:48px}
-  th.date,td.date{font-variant-numeric:tabular-nums;white-space:nowrap}
-  tbody td{padding:10px 12px;border-bottom:1px solid var(--line);border-right:1px solid #ECE8DF;vertical-align:top}
-  tbody td:last-child{border-right:none}
-  tbody tr:nth-child(even){background:var(--zebra)}
-  tbody tr:hover{background:#EAF1ED}
-  td.nombre{font-weight:600}
-  .pais{color:var(--ink-soft);font-variant-numeric:tabular-nums}
-
-  .state{padding:54px 26px;text-align:center;color:var(--ink-soft)}
-  .state h2{font-family:"Fraunces",serif;color:var(--seal);font-size:20px;margin-bottom:8px}
-  .state code{background:var(--zebra);padding:2px 7px;border-radius:4px;font-size:13px}
-  .state.err h2{color:var(--gold)}
-
-  footer.foot{
-    padding:12px 26px 18px;border-top:1px solid var(--line);
-    font-size:11px;color:var(--ink-soft);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
-  }
-
-  @media print{
-    body{padding:0;background:#fff}
-    .toolbar{display:none}
-    .sheet{border:none;box-shadow:none;max-width:none}
-    thead{display:table-header-group}
-    tbody tr{break-inside:avoid}
-    @page{size:letter landscape;margin:12mm}
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etiqueta de Cliente</title>
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            width: 80mm;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .label {
+            border: 1px solid #000;
+            padding: 10px;
+            margin: 0 auto;
+        }
+        .barcode {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-
-<div class="toolbar">
-  <button class="btn ghost" onclick="window.print()">Imprimir</button>
-  <button class="btn" onclick="window.print()">Guardar PDF</button>
-</div>
-
-<div class="sheet">
-  <header class="head">
-    <div class="left">
-      <div class="eyebrow">805 MultiServices · Atención a Trámites</div>
-      <h1 id="titulo">Lista de Citas — Consulado</h1>
+    <div class="label">
+        <div>
+            <strong>Cliente:</strong>
+            <span id="NombreCompleto"></span>
+        </div>
+        <div class="barcode">
+            <svg id="CodigoBarra"></svg>
+        </div>
     </div>
-    <div class="chip" id="chip" style="display:none">Registros: <b id="count">0</b></div>
-  </header>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const NombreCompleto = urlParams.get('Completo');
+            const Telefono = urlParams.get('Telefono');
 
-  <div id="content"></div>
+            console.log("Parámetros recibidos:", { NombreCompleto, Telefono });
 
-  <footer class="foot">
-    <div>Documento de trabajo interno · 805 MultiServices · v2</div>
-    <div id="genfecha"></div>
-  </footer>
-</div>
+            document.getElementById("NombreCompleto").textContent = NombreCompleto || "Dato no disponible";
 
-<script>
-(function(){
-  // Lee parámetros TANTO de la query (?) como del fragmento (#).
-  // El fragmento no se envía al servidor: evita el error 414 "URI Too Long".
-  // Si una clave llega en ambos, gana la del fragmento.
-  function readParams(){
-    var out = {};
-    try{
-      new URLSearchParams(window.location.search).forEach(function(v,k){ out[k]=v; });
-    }catch(e){}
-    try{
-      if(window.location.hash && window.location.hash.length > 1){
-        new URLSearchParams(window.location.hash.slice(1)).forEach(function(v,k){ out[k]=v; });
-      }
-    }catch(e){}
-    return out;
-  }
-  var P = readParams();
-
-  var t = (P.titulo||'').trim();
-  if(t) document.getElementById('titulo').textContent = t;
-
-  var now = new Date();
-  document.getElementById('genfecha').textContent =
-    'Generado ' + now.toLocaleDateString('es-MX') + ' ' +
-    now.toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'});
-
-  var content = document.getElementById('content');
-  var raw = P.datos;
-
-  if(!raw || !raw.trim()){
-    content.innerHTML =
-      '<div class="state"><h2>Sin datos para mostrar</h2>' +
-      '<p>Esta hoja recibe los registros desde AppSheet en el parámetro <code>datos</code> ' +
-      '(un arreglo JSON). Ábrela con la acción correspondiente para ver la lista.</p></div>';
-    return;
-  }
-
-  var rows;
-  try{
-    rows = JSON.parse(raw);
-    if(!Array.isArray(rows)) throw new Error('no es arreglo');
-  }catch(e){
-    content.innerHTML =
-      '<div class="state err"><h2>No se pudieron leer los datos</h2>' +
-      '<p>El parámetro <code>datos</code> no es un JSON válido. Revisa el escape de comillas ' +
-      'en la columna virtual de AppSheet.</p></div>';
-    return;
-  }
-
-  if(rows.length === 0){
-    content.innerHTML = '<div class="state"><h2>La lista llegó vacía</h2>' +
-      '<p>El filtro del <code>SELECT</code> no devolvió registros.</p></div>';
-    return;
-  }
-
-  function esc(s){
-    if(s == null) return '';
-    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  }
-
-  var html = '<div class="tablewrap"><table><thead><tr>' +
-    '<th class="num">No.</th>' +
-    '<th>Nombre(s)</th>' +
-    '<th>Apellido</th>' +
-    '<th>País</th>' +
-    '<th>Estado</th>' +
-    '<th>Municipio</th>' +
-    '<th class="date">Nac.</th>' +
-    '</tr></thead><tbody>';
-
-  rows.forEach(function(r, i){
-    html +=
-      '<tr>' +
-      '<td class="num">' + (i+1) + '</td>' +
-      '<td class="nombre">' + esc(r.nom) + '</td>' +
-      '<td>' + esc(r.ape) + '</td>' +
-      '<td class="pais">' + esc(r.pais) + '</td>' +
-      '<td>' + esc(r.edo) + '</td>' +
-      '<td>' + esc(r.mun) + '</td>' +
-      '<td class="date">' + esc(r.nac) + '</td>' +
-      '</tr>';
-  });
-  html += '</tbody></table></div>';
-  content.innerHTML = html;
-
-  document.getElementById('count').textContent = rows.length;
-  document.getElementById('chip').style.display = '';
-})();
-</script>
+            if (Telefono) {
+                console.log("Intentando generar código de barras para:", Telefono);
+                JsBarcode("#CodigoBarra", Telefono, {
+                    format: "CODE128",
+                    lineColor: "#000",
+                    width: 2,
+                    height: 50,
+                    displayValue: true
+                });
+            } else {
+                console.log("El parámetro Telefono está vacío o no válido.");
+                document.getElementById("CodigoBarra").textContent = "Teléfono no disponible";
+            }
+        });
+    </script>
 </body>
 </html>
+
+
+
