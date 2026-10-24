@@ -21,7 +21,7 @@
 
   .label {
     width: 3.5in; height: 1.1in;
-    padding: 0.06in 0.12in;
+    padding: 0.14in 0.18in 0.08in;      /* margen seguro: la orilla no se imprime y las esquinas son redondeadas */
     background: #fff;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     overflow: hidden;
@@ -32,7 +32,8 @@
     width: 100%;
     font-weight: bold; text-align: center; line-height: 1.1;
     white-space: nowrap; overflow: hidden;
-    font-size: 13pt;                     /* se reduce solo si el nombre no cabe */
+    font-size: 11pt;                     /* se reduce solo si el nombre no cabe */
+    padding-top: 1px;
   }
   .barcode { width: 100%; flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; margin-top: 0.03in; }
   .barcode svg { display: block; max-width: 100%; max-height: 100%; }
@@ -80,10 +81,18 @@ document.addEventListener("DOMContentLoaded", function () {
     document.head.appendChild(st);
   }
 
+  // Ajuste fino si la impresora corta arriba o abajo: ?bajar=0.05 (pulgadas; negativo para subir)
+  const bajar = parseFloat(q.get("bajar"));
+  if (isFinite(bajar) && bajar !== 0) {
+    const lab = document.getElementById("label");
+    const top = Math.max(0, 0.14 + bajar), bottom = Math.max(0, 0.08 - bajar);
+    lab.style.paddingTop = top + "in"; lab.style.paddingBottom = bottom + "in";
+  }
+
   // Nombre: se achica hasta que quepa en una línea (mínimo 7pt)
   const elNombre = document.getElementById("NombreCompleto");
   elNombre.textContent = nombre || "Dato no disponible";
-  let pt = 13;
+  let pt = 11;
   while (elNombre.scrollWidth > elNombre.clientWidth && pt > 7) {
     pt -= 0.5;
     elNombre.style.fontSize = pt + "pt";
@@ -100,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
       height: 60,
       margin: 0,
       displayValue: true,
-      fontSize: 16,
+      fontSize: 15,
       textMargin: 1,
       text: digitos.length === 10
         ? "(" + digitos.slice(0, 3) + ") " + digitos.slice(3, 6) + "-" + digitos.slice(6)
